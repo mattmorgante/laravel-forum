@@ -28,6 +28,7 @@ class ThreadsTest extends TestCase
 
     function test_a_user_can_read_a_single_thread() {
         $response = $this->get('/threads/' . $this->thread->id);
+        // or $response = $this->get($this->thread->path());
         $response->assertSee($this->thread->title);
     }
 
