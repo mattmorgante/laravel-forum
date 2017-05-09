@@ -13,9 +13,9 @@ class CreateThreadsTest extends TestCase
     use DatabaseMigrations;
     /** @test */
     function test_auth_user_can_create_thread() {
-        $this->actingAs(factory('App\User')->create());
+        $this->actingAs(create('App\User'));
 
-        $thread = factory('App\thread')->make();
+        $thread = make('App\thread');
 
         $this->post('/threads', $thread->toArray());
 
@@ -24,12 +24,17 @@ class CreateThreadsTest extends TestCase
             ->assertSee($thread->body);
     }
 
-    // todo: make it so that guests never even get to the method, not that it gets rejected by DB
     function test_guest_cannot_create_thread()
     {
-        $this->expectException('Illuminate\Database\QueryException');
-        $thread = factory('App\thread')->make();
+        $this->expectException('Illuminate\Auth\AuthenticationException');
+        $thread = make('App\thread');
 
         $this->post('/threads', $thread->toArray());
+    }
+
+    function test_guests_cannot_see_create_page() {
+        $this->withExceptionHandling()
+            ->get('/threads/create')
+            ->assertRedirect('/login');
     }
 }
