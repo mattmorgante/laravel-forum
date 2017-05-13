@@ -27,4 +27,9 @@ class thread extends Model
     public function channel() {
         return $this->belongsTo(Channel::class);
     }
+
+    // call the apply method for the query
+    public function scopeFilter($query, $filters) {
+        return $filters->apply($query);
+    }
 }

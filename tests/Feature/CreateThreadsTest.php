@@ -19,12 +19,6 @@ class CreateThreadsTest extends TestCase
 
         $response = $this->post('/threads', $thread->toArray());
 
-
-
-        // now it should be saved to the database
-
-        // does the test actually test the action?
-
         $this->get($response->headers->get('Location'))
             ->assertSee($thread->title)
             ->assertSee($thread->body);

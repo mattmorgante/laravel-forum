@@ -40,4 +40,28 @@ class ThreadsTest extends TestCase
         $response->assertSee($reply->body);
 
     }
+
+    /** @test */
+    function a_user_can_filter_threads_by_tag() {
+        $channel = create('App\Channel');
+
+        $threadInChannel = create('App\thread', ['channel_id' => $channel->id]);
+        $threadNotInChannel = create('App\thread');
+
+        $this->get('/threads/'. $channel->slug)
+            ->assertsee($threadInChannel->title)
+            ->assertDontSee($threadNotInChannel->title);
+    }
+
+    /** @test */
+    function a_user_can_filter_threads_by_username () {
+        $this->signIn(create('App\User', ['name' => 'Matt']));
+
+        $threadbyMatt = create('App\thread', ['user_id' => auth()->id()]);
+        $threadNotByMatt = create('App\thread');
+
+        $this->get('threads?by=Matt')
+            ->assertSee($threadbyMatt->title)
+            ->assertDontSee($threadNotByMatt->title);
+    }
 }
