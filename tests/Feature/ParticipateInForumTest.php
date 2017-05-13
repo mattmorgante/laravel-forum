@@ -27,14 +27,9 @@ class ParticipateInForumTest extends TestCase
 
     /** @test */
     function guests_may_not_reply() {
-
-        $this->expectException('Illuminate\Auth\AuthenticationException');
-
-        $thread = create('App\thread');
-
-        $reply = make('App\Reply');
-        $this->post($thread->path().'/replies', $reply->toArray());
-
+        $this->withExceptionHandling()
+            ->post('/threads/some-channel/1/replies', [])
+            ->assertRedirect('/login');
     }
 
 }

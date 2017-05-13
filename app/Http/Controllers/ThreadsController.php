@@ -59,10 +59,11 @@ class ThreadsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\thread  $thread
+     * @param $channelId
+     * @param  \App\thread $thread
      * @return \Illuminate\Http\Response
      */
-    public function show(thread $thread)
+    public function show($channelId, thread $thread)
     {
         return view('threads.show', compact('thread'));
     }
