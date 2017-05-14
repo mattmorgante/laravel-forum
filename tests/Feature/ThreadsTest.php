@@ -64,4 +64,22 @@ class ThreadsTest extends TestCase
             ->assertSee($threadbyMatt->title)
             ->assertDontSee($threadNotByMatt->title);
     }
+
+
+    /** @test */
+    function a_user_can_filter_threads_by_popularity() {
+        // 3 threads , with varying numbers of replies
+        $threadWithTwoReplies = create('App\thread');
+        create('App\Reply', ['thread_id' => $threadWithTwoReplies->id], 2);
+
+        $threadWithThreeReplies = create('App\thread');
+        create('App\Reply', ['thread_id' => $threadWithThreeReplies->id], 3);
+
+        $threadWithNoReplies = $this->thread;
+
+        // return them from most replies to least
+        $response = $this->getJson('threads?popular=1')->json();
+        // pop out the replies count from the json and assert it is equal to 3,2,0
+        $this->assertEquals([3,2,0], array_column($response, 'replies_count'));
+    }
 }
