@@ -5,7 +5,6 @@ namespace App\Filters;
 use Illuminate\Http\Request;
 
 // abstract class is never instantiated. it is only called by subclasses
-
 abstract class Filters
 {
     protected $request, $builder;

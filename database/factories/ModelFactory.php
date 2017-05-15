@@ -32,7 +32,7 @@ $factory->define(App\thread::class, function ($faker) {
           return factory('App\Channel')->create()->id;
         },
         'title' => $faker->sentence,
-        'body' => $faker->paragraph,
+        'body' => $faker->sentence,
     ];
 });
 
