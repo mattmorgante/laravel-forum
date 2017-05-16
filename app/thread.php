@@ -19,6 +19,7 @@ class thread extends Model
     }
 
     public function path() {
+        // this query runs more than 50 TIMES!!
         return "/threads/{$this->channel->slug}/{$this->id}";
     }
 
