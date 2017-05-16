@@ -57,3 +57,10 @@ $factory->define(App\Reply::class, function ($faker) {
     ];
 
 });
+
+$factory->define(App\Notification::class, function ($faker) {
+    return [
+        'message' => $faker->sentence,
+        'mustBeLoggedIn' =>$faker->boolean
+    ];
+});
