@@ -68,4 +68,34 @@ class CreateThreadsTest extends TestCase
         return $this->post('/threads', $thread->toArray());
     }
 
+    /** @test */
+    function guests_cannot_delete() {
+        // NOT SIGNED IN!!
+        $this->withExceptionHandling();
+        $thread = create('App\thread');
+        $response = $this->delete($thread->path());
+        $response->assertRedirect('/login');
+    }
+
+    /** @test */
+    function delete_a_thread() {
+        $this->signIn();
+
+        $thread = create('App\thread');
+        $reply = create('App\Reply', ['thread_id' => $thread->id]);
+
+        $response = $this->json('DELETE', $thread->path());
+
+        $response->assertStatus(204);
+
+        $this->assertDatabaseMissing('threads', ['id' => $thread->id]);
+        $this->assertDatabaseMissing('replies', ['thread_id' => $reply ->id]);
+    }
+
+
+    /** @test */
+    function threads_only_deleted_by_user_with_permission() {
+
+    }
+
 }
