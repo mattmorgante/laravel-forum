@@ -69,19 +69,22 @@ class CreateThreadsTest extends TestCase
     }
 
     /** @test */
-    function guests_cannot_delete() {
+    function unauthorized_users_cannot_delete() {
         // NOT SIGNED IN!!
         $this->withExceptionHandling();
         $thread = create('App\thread');
-        $response = $this->delete($thread->path());
-        $response->assertRedirect('/login');
+        // not logged in? redirect to login!
+        $this->delete($thread->path())->assertRedirect('/login');
+        // even if you're signed in, you shouldn't be able to delete everything
+        $this->signIn();
+        $this->delete($thread->path())->assertStatus(403);
     }
 
     /** @test */
-    function delete_a_thread() {
+    function authorized_users_can_delete_threads() {
         $this->signIn();
 
-        $thread = create('App\thread');
+        $thread = create('App\thread', ['user_id' => auth()->id()]);
         $reply = create('App\Reply', ['thread_id' => $thread->id]);
 
         $response = $this->json('DELETE', $thread->path());
@@ -92,10 +95,5 @@ class CreateThreadsTest extends TestCase
         $this->assertDatabaseMissing('replies', ['thread_id' => $reply ->id]);
     }
 
-
-    /** @test */
-    function threads_only_deleted_by_user_with_permission() {
-
-    }
 
 }

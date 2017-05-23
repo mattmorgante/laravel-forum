@@ -42,7 +42,6 @@ $factory->define(App\Channel::class, function ($faker) {
         'name' => $name,
         'slug' => $name
     ];
-
 });
 
 $factory->define(App\Reply::class, function ($faker) {
@@ -55,7 +54,6 @@ $factory->define(App\Reply::class, function ($faker) {
         },
         'body' => $faker->sentence,
     ];
-
 });
 
 $factory->define(App\Notification::class, function ($faker) {
