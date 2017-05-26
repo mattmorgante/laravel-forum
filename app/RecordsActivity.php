@@ -7,9 +7,17 @@ trait RecordsActivity
     // for any trait the model uses
     // boot + name of trait runs model events automagically
     protected static function bootRecordsActivity() {
-        static::created(function ($thread) {
-            $thread->recordActivity('created');
-        });
+        if (auth()->guest()) return;
+
+        foreach (static::getActivityToRecord() as $event) {
+            static::$event(function ($model) use ($event) {
+                $model->recordActivity($event);
+            });
+        }
+    }
+
+    protected static function getActivityToRecord() {
+        return ['created'];
     }
 
     protected function recordActivity($event){
