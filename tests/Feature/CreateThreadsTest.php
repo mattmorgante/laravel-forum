@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Activity;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -102,6 +103,8 @@ class CreateThreadsTest extends TestCase
             'subject_id' => $reply->id,
             'subject_type' => get_class($reply)
         ]);
+
+        $this->assertEquals(0, Activity::count());
     }
 
 
