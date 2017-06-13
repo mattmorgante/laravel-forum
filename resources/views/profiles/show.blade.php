@@ -7,7 +7,6 @@
                 <div class="page-header">
                     <h1>
                         {{ $profileUser->name }}
-                        <small>{{ $profileUser->created_at->diffForHumans() }}</small>
                     </h1>
                 </div>
                 @foreach ($activities as $date => $activity)

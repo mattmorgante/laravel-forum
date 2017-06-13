@@ -12,7 +12,7 @@ class thread extends Model
 
     // global query scope
 
-    protected static function  boot() {
+    protected static function boot() {
         parent::boot();
 
         static::addGlobalScope('replyCount', function($builder) {
@@ -20,7 +20,9 @@ class thread extends Model
         });
 
         static::deleting(function ($thread) {
-           $thread->replies()->delete();
+           $thread->replies()->each(function ($reply) {
+               $reply->delete();
+           });
         });
     }
 
