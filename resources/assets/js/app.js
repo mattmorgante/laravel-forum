@@ -15,7 +15,7 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('flash', require('./components/Flash.vue')); // <flash>
+Vue.component('exam', require('./components/Flash.vue')); // <flash>
 
 const app = new Vue({
     el: '#app'

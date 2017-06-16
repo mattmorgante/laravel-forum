@@ -976,7 +976,7 @@ window.Vue = __webpack_require__(42);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('flash', __webpack_require__(36)); // <flash>
+Vue.component('exam', __webpack_require__(36)); // <flash>
 
 var app = new Vue({
   el: '#app'
