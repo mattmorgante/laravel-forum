@@ -1,5 +1,7 @@
 # Forum
 
+This is a basic forum application built using Laravel and Vue.js. It contains threads, replies to those threads, and the ability to favorite a reply. The code is written using test-driven development and PHPUNIT. In order to create or reply to thread, please log-in.
+
 ## Documentation
 * A user has many threads, a user has many replies
 * A thread has many replies 
@@ -8,12 +10,6 @@
 * A channel has many threads 
 * A reply is "favoritable" - trait 
 * A favorite belongs to a reply 
-
-
-## To Do 
-* How does a URL get produced for the profile page of a user with a last name? 
-* What does the morphmany relationship entail? Good topic for a blog post 
-
 
 ## Ideas 
 Pre-populated list of categories 
