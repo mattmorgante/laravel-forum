@@ -1847,7 +1847,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            body: this.message
+            body: this.message,
+            show: false
         };
     }
 });
@@ -31796,6 +31797,12 @@ module.exports = function normalizeComponent (
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.show),
+      expression: "show"
+    }],
     staticClass: "alert alert-warning alert-flash",
     attrs: {
       "role": "alert"

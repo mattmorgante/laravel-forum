@@ -1,5 +1,5 @@
 <template>
-    <div class="alert alert-warning alert-flash" role="alert">
+    <div class="alert alert-warning alert-flash" role="alert" v-show="show">
         <strong>Success!</strong> {{ body }}
     </div>
 </template>
@@ -10,7 +10,14 @@
 
         data()  {
             return {
-                body: this.message
+                body: '',
+                show: false
+            }
+        }
+        created () {
+            if (this.message) {
+                this.body = this.message;
+                this.show = true;
             }
         }
     };
